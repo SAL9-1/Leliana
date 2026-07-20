@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leliana</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      background: #000;
+      overscroll-behavior: none;
+    }
+
+    body {
+      min-height: 100vh;
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-touch-callout: none;
+    }
+
+    main {
+      display: flex;
+      width: 100%;
+      flex-direction: column;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .webtoon-image {
+      display: block;
+      width: 100%;
+      max-width: 800px;
+      height: auto;
+      margin: 0;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+      pointer-events: none;
+    }
+
+    .webtoon-image.loaded {
+      opacity: 1;
+    }
+
+    @media (max-width: 800px) {
+      .webtoon-image {
+        width: 100vw;
+        max-width: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <img class="webtoon-image" src="images/1.png" alt="웹툰 이미지 1">
+    <img class="webtoon-image" src="images/2.png" alt="웹툰 이미지 2" loading="lazy">
+    <img class="webtoon-image" src="images/3.png" alt="웹툰 이미지 3" loading="lazy">
+    <img class="webtoon-image" src="images/4.png" alt="웹툰 이미지 4" loading="lazy">
+  </main>
+
+  <script>
+    const images = document.querySelectorAll(".webtoon-image");
+
+    images.forEach((image) => {
+      if (image.complete) {
+        image.classList.add("loaded");
+      } else {
+        image.addEventListener("load", () => {
+          image.classList.add("loaded");
+        });
+      }
+    });
+
+    document.addEventListener("contextmenu", (event) => {
+      event.preventDefault();
+    });
+
+    document.addEventListener("dragstart", (event) => {
+      event.preventDefault();
+    });
+  </script>
+</body>
+</html>
