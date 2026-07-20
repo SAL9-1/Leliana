@@ -32,10 +32,10 @@
     }
 
     main {
+      display: flex;
       width: 100%;
       margin: 0;
       padding: 0;
-      display: flex;
       flex-direction: column;
       align-items: center;
       background: #000;
@@ -68,6 +68,11 @@
 </head>
 
 <body>
+
+  <!-- 숨겨진 배경음악 -->
+  <audio id="bgm" autoplay loop preload="auto">
+    <source src="audio/BGM.mp3" type="audio/mpeg">
+  </audio>
 
   <main>
     <img
@@ -117,6 +122,31 @@
 
     document.addEventListener("dragstart", (event) => {
       event.preventDefault();
+    });
+
+    const bgm = document.getElementById("bgm");
+
+    // 0.3 = 음량 30%
+    bgm.volume = 0.3;
+
+    const playBgm = () => {
+      bgm.play().catch(() => {
+        // 브라우저가 자동재생을 막으면 사용자 동작 때 다시 시도
+      });
+    };
+
+    window.addEventListener("load", playBgm);
+
+    document.addEventListener("click", playBgm, {
+      once: true
+    });
+
+    document.addEventListener("touchstart", playBgm, {
+      once: true
+    });
+
+    document.addEventListener("scroll", playBgm, {
+      once: true
     });
   </script>
 
